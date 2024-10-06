@@ -1,2 +1,2 @@
 # aurorawiki.earth
-NASA Space Apps Challenge - Geomagnetic
+  NASA Space Apps Challenge - Geomagnetic Storms
