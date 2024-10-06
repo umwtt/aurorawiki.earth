@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interactive sections with scroll and touch controls.">
+
+  <link rel="stylesheet" href="styles.css">
+  <title>Interactive Sections</title>
+
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap">
+
+
+  <style>
+    /* Kapsayıcı ve kartların genel düzeni */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+    }
+
+    .content {
+      display: flex; /* Kartları yatay olarak yerleştirir */
+      overflow-x: scroll; /* Yatay kaydırma */
+      scroll-snap-type: x mandatory; /* Scroll snap türü */
+      padding: 20px;
+      gap: 20px; /* Kartlar arası boşluk */
+      scrollbar-width: none; /* Kaydırma çubuğunu gizler (Firefox) */
+    }
+
+    .content::-webkit-scrollbar {
+      display: none; /* Kaydırma çubuğunu gizler (Chrome, Safari) */
+    }
+
+    .content > section {
+      flex: 0 0 300px; /* Kart genişliği */
+      height: 200px; /* Kart yüksekliği */
+      scroll-snap-align: start; /* Kartların hizalanmasını sağlar */
+      border-radius: 10px; /* Kart kenar yuvarlama */
+      background-size: cover; /* Arka plan görselini kapla */
+      background-position: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hafif gölge efekti */
+      position: relative;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    /* Kartlara başlık ve metin ekleme */
+    .content > section h2,
+    .content > section p {
+      margin: 0;
+      padding: 10px;
+      color: white;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Metne gölge efekti */
+    }
+
+    .content > section h2 {
+      margin-top: 20px;
+      font-size: 24px;
+    }
+
+    .content > section p {
+      font-size: 16px;
+    }
+
+    /* Arka plan görselleri */
+    #hiking {
+      background-image: url('north.png');
+    }
+
+    #camping {
+      background-image: url('images/camping.jpg');
+    }
+
+    #stargazing {
+      background-image: url('images/stargazing.jpg');
+    }
+
+    /* Fareyle kartların üzerine gelindiğinde büyütme efekti */
+    .content > section:hover {
+      transform: scale(1.05); /* Kartı biraz büyüt */
+      cursor: pointer;
+    }
+
+    /* Sol ve sağ ok düğmeleri */
+    .scroll-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+    }
+
+    .scroll-button.left {
+      left: 10px;
+    }
+
+    .scroll-button.right {
+      right: 10px;
+    }
+
+    .scroll-button:focus {
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Kartları içeren kapsayıcı -->
+  <div class="content">
+    <section id="hiking">
+      <h2>Hiking</h2>
+      <p>Explore the mountains and valleys...</p>
+    </section>
+    <section id="camping">
+      <h2>Camping</h2>
+      <p>Spend a night under the stars...</p>
+    </section>
+    <section id="stargazing">
+      <h2>Stargazing</h2>
+      <p>Observe the constellations and explore the night sky...</p>
+    </section>
+  </div>
+
+  <!-- Sol ve sağ kaydırma butonları -->
+  <button class="scroll-button left" id="scroll-left">&lt;</button>
+  <button class="scroll-button right" id="scroll-right">&gt;</button>
+
+  <script>
+    // JavaScript ile kaydırma işlevini tanımlama
+    const container = document.querySelector('.content');
+    const scrollLeftBtn = document.getElementById('scroll-left');
+    const scrollRightBtn = document.getElementById('scroll-right');
+
+    // Sol ok düğmesine tıklama olayını dinleme
+    scrollLeftBtn.addEventListener('click', () => {
+      container.scrollBy({
+        left: -300, // Sola doğru kaydır
+        behavior: 'smooth' // Yumuşak kaydırma
+      });
+    });
+
+    // Sağ ok düğmesine tıklama olayını dinleme
+    scrollRightBtn.addEventListener('click', () => {
+      container.scrollBy({
+        left: 300, // Sağa doğru kaydır
+        behavior: 'smooth' // Yumuşak kaydırma
+      });
+    });
+
+    // Fare tekerleği ile yatay kaydırmayı etkinleştirme
+    container.addEventListener('wheel', (event) => {
+      event.preventDefault(); // Varsayılan dikey kaydırmayı engelle
+      container.scrollBy({
+        left: event.deltaY < 0 ? -100 : 100, // Yukarı kaydırma -> Sola, Aşağı kaydırma -> Sağa
+        behavior: 'smooth'
+      });
+    });
+  </script>
+
+</body>
+</html>

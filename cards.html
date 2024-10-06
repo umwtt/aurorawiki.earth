@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interactive sections with scroll and touch controls.">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <title>Interactive Sections</title>
+
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap">
+
+
+
+  <header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="simulation.html">Simulation</a></li>
+            <li><a href="cards.html">Cards</a></li>
+            <li><a href="chart.html">Chart</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+
+
+        </ul>
+    </nav>
+    <h1>Effects of Geomagnetic Storms</h1>
+</header>
+
+
+
+  <style>
+    :root {
+      font-family: "Urbanist";
+      --bg: #0b0a0d;
+      --bg-2: #1b1c1f;
+      --bg-2: #1f1c21;
+      --accent: #864DEB;
+    }
+
+    *, *:before, *:after {
+      box-sizing: border-box;
+      flex-shrink: 0;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      width: 100%;
+      background: var(--bg);
+      overflow: hidden;
+      display: grid;
+      place-content: center;
+      color: var(--primary-text);
+      user-select: none;
+    }
+
+    .content {
+      --scroll: 1;
+      height: 20rem;
+      width: 20rem;
+      position: relative;
+
+    }
+
+    .content:hover {
+      --dscroll: 1.6;
+    }
+
+    .content > section {
+      --relPosition: 1;
+      position: absolute;
+      top: 0;
+      left: calc(var(--relPosition) * 80%);
+      height: 100%;
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 2rem;
+      display: flex;
+      flex-direction: column;
+      box-shadow: inset 0 0 0 0.125rem #ffffff11;
+      overflow: hidden;
+      isolation: isolate;
+      z-index: calc(1000 + 100 * min(var(--relPosition), -1*var(--relPosition)));
+    }
+
+    .content > section:after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--image) center center / cover;
+      z-index: -1;
+      border-radius: inherit;
+      filter: brightness(50%) blur(0.25rem);
+      transform: scale(1);
+    }
+
+    .content > section > .image {
+      flex-grow: 1;
+      border-radius: 1.25rem;
+      box-shadow: 0 0 0.75rem #00000077;
+      background: var(--image) center center / cover;
+    }
+
+    .content > section > .title {
+      color: white;
+      font-weight: 500;
+      padding: 0.25rem 0.125rem;
+      font-size: 1.25rem;
+    }
+
+    .content > section > .button {
+      height: 2.5rem;
+      border-radius: 1.25rem;
+      background: #ffffff22;
+      backdrop-filter: brightness(200%) blur(2rem);
+      display: grid;
+      place-content: center;
+      font-weight: 500;
+      color: white;
+    }
+
+    #climate {
+      --image: url('https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/2B08/production/_127561011_climate_5_cc_index_and_article_image_template_976-ncclimate_change_article_image_template_976-nc.png.webp');
+    }
+
+    #agriculture {
+      --image: url('https://2017-2021.state.gov/wp-content/uploads/2020/05/dji-4204801_1920-1-e1590593614269.jpg');
+    }
+
+    #spaceplants {
+      --image: url('https://images.unsplash.com/photo-1516257273908-f54242bd5ade?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTcyNjU1OTh8&ixlib=rb-4.0.3&q=85');
+    }
+
+    #satellite {
+      --image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/GPS_Block_IIIA.jpg/600px-GPS_Block_IIIA.jpg');
+    }
+    #radio {
+      --image: url('https://lh6.googleusercontent.com/proxy/mXE6qNpUbxbivmYxtUB-QDTu2Klex_82vnnADGUuxfCwAPx0hGxZkuaZ2sTMmk9oC4jm5F6VzYOpPu0YUfC22w-mKg59BenPz3iArNtYZG4bsFfpByCI9cYkvg');
+    }
+    #radar {
+      --image: url('https://upload.wikimedia.org/wikipedia/commons/9/90/Radar_antenna.jpg');
+    }
+
+    #internet {
+      --image: url('https://pazarlama.web.tr/wp-content/uploads/2019/12/internet1.jpg');
+    }
+    #electric {
+      --image: url('https://taraenergy.com/wp-content/uploads/2022/11/history-of-electricity-article-image-of-electric-powerlines.jpeg');
+    }
+    #pipelines {
+      --image: url('https://www.compliancesigns.com/blog/wp-content/uploads/2023/10/oil-and-gas-pipelines.jpg');
+    }
+    #aviation {
+      --image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXH7ed_82i8d5kCr8CpZVGVLDx25oAbF2jBw&s');
+    }
+    #workingspace {
+      --image: url('https://c02.purpledshub.com/uploads/sites/48/2020/02/iss061e143462-49a900a-scaled.jpg?w=1029&webp=1');
+    }
+    #polar {
+      --image: url('https://live.staticflickr.com/5592/14785612216_3fb9938ca5_b.jpg');
+    }
+  </style>
+</head>
+<body>
+
+  <div class="content">
+    <section id="climate" style="--position: 0;">
+      <div class="image"></div>
+      <div class="title">Climate Change</div>
+      <div class="button" onclick="redirectTo('climate.html')">More</div>
+    </section>
+    <section id="agriculture" style="--position: 1;">
+      <div class="image"></div>
+      <div class="title">Agricultural Technologies:</div>
+      <div class="button" onclick="redirectTo('agriculture.html')">More</div>
+    </section>
+    <section id="spaceplants" style="--position: 2;">
+      <div class="image"></div>
+      <div class="title">Space Weather and Plant Growth:</div>
+      <div class="button" onclick="redirectTo('spaceplants.html')">More</div>
+    </section>
+    <section id="satellite" style="--position: 3;">
+      <div class="image"></div>
+      <div class="title">Satellite Systems:</div>
+      <div class="button" onclick="redirectTo('satellite.html')">More</div>
+    </section>
+    <section id="radio" style="--position: 4;">
+      <div class="image"></div>
+      <div class="title">Radio Communication:</div>
+      <div class="button" onclick="redirectTo('radio.html')">More</div>
+    </section>
+    <section id="radar" style="--position: 5;">
+      <div class="image"></div>
+      <div class="title">Radar Systems:</div>
+      <div class="button" onclick="redirectTo('radar.html')">More</div>
+    </section>
+    <section id="internet" style="--position: 6;">
+      <div class="image"></div>
+      <div class="title">Internet:</div>
+      <div class="button" onclick="redirectTo('internet.html')">More</div>
+    </section>
+    <section id="electric" style="--position: 7;">
+      <div class="image"></div>
+      <div class="title">Electrical Networks:</div>
+      <div class="button" onclick="redirectTo('electric.html')">More</div>
+    </section>
+    <section id="pipelines" style="--position: 8;">
+      <div class="image"></div>
+      <div class="title">Pipelines:</div>
+      <div class="button" onclick="redirectTo('pipelines.html')">More</div>
+    </section>
+    <section id="aviation" style="--position: 9;">
+      <div class="image"></div>
+      <div class="title">Aviation:</div>
+      <div class="button" onclick="redirectTo('aviation.html')">More</div>
+    </section>
+    <section id="workingspace" style="--position: 10;">
+      <div class="image"></div>
+      <div class="title">Those Working in Space:</div>
+      <div class="button" onclick="redirectTo('workingspace.html')">More</div>
+    </section>
+    <section id="polar" style="--position: 11;">
+      <div class="image"></div>
+      <div class="title">People Living in Polar Regions:</div>
+      <div class="button" onclick="redirectTo('polar.html')">More</div>
+    </section>
+
+
+  </div>
+
+
+
+
+  <script>
+    let mousePos = { x: 0, y: 0 };
+    let lastMousePos = { x: 0, y: 0 };
+    let isMouseDown = false;
+
+    document.addEventListener("mousemove", (event) => {
+      mousePos.x = event.clientX;
+      mousePos.y = event.clientY;
+    });
+
+    document.addEventListener("touchmove", (event) => {
+      mousePos.x = event.touches[0].clientX;
+      mousePos.y = event.touches[0].clientY;
+    });
+
+    document.addEventListener("mousedown", (event) => {
+      isMouseDown = true;
+      lastMousePos.x = event.clientX;
+      lastMousePos.y = event.clientY;
+    });
+
+    document.addEventListener("touchstart", (event) => {
+      isMouseDown = true;
+      lastMousePos.x = event.touches[0].clientX;
+      lastMousePos.y = event.touches[0].clientY;
+    });
+
+    document.addEventListener("mouseup", () => isMouseDown = false);
+    document.addEventListener("touchend", () => isMouseDown = false);
+
+    let scrollPosition = 0;
+    let targetPosition = 0;
+    let targetVelocity = 0;
+
+    function frame() {
+      window.requestAnimationFrame(frame);
+      const contentEl = document.querySelector(".content");
+
+      if (isMouseDown) {
+        const rect = contentEl.getBoundingClientRect();
+        targetVelocity = -1 * (mousePos.x - lastMousePos.x) / rect.width;
+        lastMousePos.x = mousePos.x;
+        lastMousePos.y = mousePos.y;
+        targetPosition += targetVelocity;
+        scrollPosition = scrollPosition * 0.8 + targetPosition * 0.2;
+      } else {
+        const snappingPosition = Math.min(Math.max(0, Math.round(targetPosition)), 8);
+        const snappingForce = 0.05;
+        targetVelocity += (snappingPosition - targetPosition) * snappingForce;
+        const damping = 0.8;
+        targetVelocity *= damping;
+        targetPosition += targetVelocity;
+        scrollPosition = scrollPosition * 0.9 + targetPosition * 0.1;
+      }
+
+      contentEl.style.setProperty("--scroll", scrollPosition);
+      contentEl.querySelectorAll("section").forEach(el => {
+        const relativePosition = parseInt(getComputedStyle(el).getPropertyValue('--position')) - scrollPosition;
+        el.style.setProperty("--relPosition", relativePosition > 0 ? relativePosition ** 0.75 : -1 * ((-1 * relativePosition) ** 0.75));
+      });
+    }
+
+    function redirectTo(page) {
+      window.location.href = page;
+    }
+
+    frame();
+  </script>
+</body>
+</html>

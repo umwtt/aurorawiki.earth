@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number of Geomagnetic Storm Notifications in May by Years</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js kütüphanesini -->
+
+    <link rel="stylesheet" href="styles.css">
+
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="simulation.html">Simulation</a></li>
+                <li><a href="cards.html">Cards</a></li>
+                <li><a href="chart.html">Chart</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+
+
+            </ul>
+        </nav>
+        <h1>Geomagnetic Storms</h1>
+    </header>
+
+
+    <section class="intro">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+            }
+            h1, h2 {
+                text-align: center;
+            }
+            .chart-container {
+                width: 80%;
+                margin: 50px auto;
+            }
+        </style>
+
+    </head>
+
+
+    <body>
+        <h1> Total Number of Geomagnetic Storms by Years - 2018-2024 May</h1>
+        <div class="chart-container">
+            <canvas id="yearlyComparisonChart"></canvas> <!-- Grafik için tuval -->
+        </div>
+
+        <script>
+            // Yıllık Geomagnetic Storm verilerini tutmak için
+            const yearlyGeomagneticStormData = {
+                labels: ['May 2018', 'May 2019', 'May 2020', 'May 2021', 'May 2022', 'May 2023', 'May 2024'],
+                datasets: [
+                    {
+                        label: 'Total Number of Geomagnetic Storms',
+                        data: [2, 3, 0, 2, 0, 3, 15], // Her Mayıs ayında kaç tane olduğu
+                        backgroundColor: ['rgba(75, 192, 192, 0.7)', 'rgba(255, 99, 132, 0.7)'],
+                        borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+                        borderWidth: 1
+                    }
+                ]
+            };
+
+            // Grafik seçenekleri:
+            const chartOptions = {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                // Tooltip içinde toplam sayıyı göster:
+                                return `Total: ${tooltipItem.raw}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Total Number of Geomagnetic Storms'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Year'
+                        }
+                    }
+                }
+            };
+
+            // Grafik oluşturma:
+            const ctx = document.getElementById('yearlyComparisonChart').getContext('2d');
+            const yearlyComparisonChart = new Chart(ctx, {
+                // Çubuk grafik
+                type: 'bar',
+                data: yearlyGeomagneticStormData,
+                options: chartOptions
+            });
+        </script>
+    </body>
+    </section>
+
+
+
+
+    <section class="intro">
+        <h2>May 2024</h2>
+
+
+        <style>
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 20px 0;
+            }
+            table, th, td {
+                border: 1px solid #ddd;
+            }
+            th, td {
+                padding: 12px;
+                text-align: left;
+            }
+            th {
+                background-color: #007bff;
+                color: #ffffff;
+            }
+
+        </style>
+
+
+        <body>
+            <h1>Space Weather Notification Archive</h1>
+            <table>
+                <tr>
+                    <th>Message ID</th>
+                    <th>Sent Date</th>
+                    <th>For SW Event(s)</th>
+                    <th>Sent By</th>
+                </tr>
+                <tr>
+                    <td>20240517-AL-006</td>
+                    <td>2024-05-17T21:33Z</td>
+                    <td>GST</td>
+                    <td>Auto Generated</td>
+                </tr>
+                <tr>
+                    <td>20240516-AL-004</td>
+                    <td>2024-05-16T12:53Z</td>
+                    <td>GST</td>
+                    <td>Tony Iampietro</td>
+                </tr>
+                <tr>
+                    <td>20240516-AL-002</td>
+                    <td>2024-05-16T09:35Z</td>
+                    <td>GST</td>
+                    <td>Auto Generated</td>
+                </tr>
+                <tr>
+                    <td>20240513-AL-002</td>
+                    <td>2024-05-13T00:53Z</td>
+                    <td>GST</td>
+                    <td>Anna Chulaki</td>
+                </tr>
+                <tr>
+                    <td>20240513-AL-001</td>
+                    <td>2024-05-13T00:34Z</td>
+                    <td>GST</td>
+                    <td>Auto Generated</td>
+                </tr>
+                <tr>
+                    <td>20240511-AL-015</td>
+                    <td>2024-05-11T15:14Z</td>
+                    <td>GST</td>
+                    <td>Tony Iampietro</td>
+                </tr>
+                <tr>
+                    <td>20240511-AL-003</td>
+                    <td>2024-05-11T00:39Z</td>
+                    <td>GST</td>
+                    <td>Anna Chulaki</td>
+                </tr>
+                <tr>
+                    <td>20240511-AL-002</td>
+                    <td>2024-05-11T00:34Z</td>
+                    <td>GST</td>
+                    <td>Auto Generated</td>
+                </tr>
+                <tr>
+                    <td>20240510-AL-016</td>
+                    <td>2024-05-10T22:01Z</td>
+                    <td>GST</td>
+                    <td>Anna Chulaki</td>
+                </tr>
+                <tr>
+                    <td>20240510-AL-015</td>
+                    <td>2024-05-10T21:35Z</td>
+                    <td>GST</td>
+                    <td>Auto Generated</td>
+                </tr>
+                <tr>
+                    <td>20240510-AL-014</td>
+                    <td>2024-05-10T19:19Z</td>
+                    <td>GST</td>
+                    <td>Mattie Anastopulos</td>
+                </tr>
+                <tr>
+                    <td>20240510-AL-013</td>
+                    <td>2024-05-10T18:44Z</td>
+                    <td>GST</td>
+                    <td>Auto Generated</td>
+                </tr>
+                <tr>
+                    <td>20240502-AL-006</td>
+                    <td>2024-05-02T21:34Z</td>
+                    <td>GST</td>
+                    <td>Auto Generated</td>
+                </tr>
+                <tr>
+                    <td>20240502-AL-005</td>
+                    <td>2024-05-02T18:50Z</td>
+                    <td>GST</td>
+                    <td>Mattie Anastopulos</td>
+                </tr>
+                <tr>
+                    <td>20240502-AL-004</td>
+                    <td>2024-05-02T18:44Z</td>
+                    <td>GST</td>
+                    <td>Auto Generated</td>
+                </tr>
+            </table>
+        </body>
+
+    </section>
+
+
+
+
+
+
+
+
+    <section class="intro">
+        <h2>May 2023</h2>
+
+
+
+        <body>
+            <h2>Geomagnetic Storm Notifications</h2>
+            <table>
+                <tr>
+                    <th>Message ID</th>
+                    <th>Sent Date</th>
+                    <th>For SW Event(s)</th>
+                    <th>Sent By</th>
+                </tr>
+                <tr>
+                    <td>20230522-AL-001</td>
+                    <td>2023-05-22T00:33Z</td>
+                    <td>GST</td>
+                    <td>Auto Generated</td>
+                </tr>
+                <tr>
+                    <td>20230506-AL-003</td>
+                    <td>2023-05-06T12:26Z</td>
+                    <td>GST</td>
+                    <td>Carina Alden</td>
+                </tr>
+                <tr>
+                    <td>20230506-AL-001</td>
+                    <td>2023-05-06T06:33Z</td>
+                    <td>GST</td>
+                    <td>Auto Generated</td>
+                </tr>
+            </table>
+        </body>
+    </section>
+
+
+
+</html>

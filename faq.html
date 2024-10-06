@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sıkça Sorulan Sorular</title>
+    <link rel="stylesheet" href="styles.css">
+
+
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="simulation.html">Simulation</a></li>
+                <li><a href="cards.html">Cards</a></li>
+                <li><a href="chart.html">Chart</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+
+
+            </ul>
+        </nav>
+        <h1>Geomagnetic Storms</h1>
+    </header>
+
+
+    <style>
+
+        body {
+            font-family: 'Arial', sans-serif;
+
+            color: #333;
+            margin: 20px;
+        }
+        h1 {
+            color: #FFFFFF;
+        }
+        .question {
+            cursor: pointer;
+            margin: 10px 0;
+            color: #FFFFFF;
+            text-decoration: underline;
+        }
+        .answer {
+            display: none;
+            margin: 5px 0 15px 0;
+            background-color: #ffffff;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sıkça Sorulan Sorular</h1>
+
+    <div class="faq">
+        <div class="question" onclick="toggleAnswer(1)">Question 1: What is an aurora and how does it form?</div>
+        <div class="answer" id="answer1"></div>
+
+        <div class="question" onclick="toggleAnswer(2)">Question 2: What do the colors of auroras depend on and what colors may appear?</div>
+        <div class="answer" id="answer2"></div>
+
+        <div class="question" onclick="toggleAnswer(3)">Question 3: What is the role of solar storms and solar wind in aurora formation?</div>
+        <div class="answer" id="answer3"></div>
+
+        <div class="question" onclick="toggleAnswer(4)">Question 4:What is the difference between Aurora Borealis and Aurora Australis?</div>
+        <div class="answer" id="answer4"></div>
+
+        <div class="question" onclick="toggleAnswer(5)">Question 5: How are the shapes of auroras formed?</div>
+        <div class="answer" id="answer5"></div>
+
+        <div class="question" onclick="toggleAnswer(6)">Question 6: What is the role of the Earth's magnetic field in the formation of aurora?</div>
+        <div class="answer" id="answer6"></div>
+
+        <div class="question" onclick="toggleAnswer(7)">Question 7: Which atmospheric gases play a role in the formation of auroras?</div>
+        <div class="answer" id="answer7"></div>
+
+        <div class="question" onclick="toggleAnswer(8)">Question 8: How have people explained auroras throughout history?</div>
+        <div class="answer" id="answer8"></div>
+
+        <div class="question" onclick="toggleAnswer(9)">Question 9: What is the role of Auroras in mythology?</div>
+        <div class="answer" id="answer9"></div>
+
+        <div class="question" onclick="toggleAnswer(10)">Question 10: What is the relationship between solar activity and the frequency of aurora?</div>
+        <div class="answer" id="answer10"></div>
+
+        <div class="question" onclick="toggleAnswer(11)">Question 11: What is the role of atoms and electrons in the formation of aurora?</div>
+        <div class="answer" id="answer11"></div>
+
+        <div class="question" onclick="toggleAnswer(12)">Question 12: Why are auroras often seen in polar regions?</div>
+        <div class="answer" id="answer12"></div>
+
+        <div class="question" onclick="toggleAnswer(13)">Question 13: What are the best conditions for observing auroras?</div>
+        <div class="answer" id="answer13"></div>
+
+        <div class="question" onclick="toggleAnswer(14)">Question 14: When was the scientific explanation of auroras made?</div>
+        <div class="answer" id="answer14"></div>
+    </div>
+
+    <script>
+
+        const answersPool = {
+            1: [
+                "Aurora is a natural light show caused by the interaction of charged particles from the Sun with gases in the Earth's atmosphere. This phenomenon is often observed in the polar regions and manifests itself as visually striking colored light bands or waves. Aurora comes in two main types: Aurora Borealis (Northern Light) and Aurora Australis (Southern Light). Both are formed by similar physical processes, but their geographical locations are different."
+            ],
+            2: [
+                "The colors of auroras depend on which atmospheric gases interact and the level of energy released during this interaction. For example, oxygen atoms emit green light when interacting, especially at an altitude of about 100 km, and can produce a red color at higher altitudes. Nitrogen molecules emit blue or violet light at lower altitudes. As a result of these interactions, auroras are often observed in shades of green, red, blue and purple."
+            ],
+            3: [
+                "Solar storms and solar wind cause charged particles to reach the Earth's magnetosphere. These particles are released during solar flares and coronal mass ejections. Charged particles are directed to the polar regions by the Earth's magnetic field. In these regions, charged particles interact with gases in the atmosphere, enabling the formation of the aurora. So, solar activity is an important factor that directly affects the frequency of aurora observation."
+            ],
+            4:[
+                "Aurora Borealis is the type of aurora observed in the Northern Hemisphere while Aurora Australis is observed in the Southern Hemisphere. Although both types of aurora are formed by the same physical processes, they are named differently due to their geographical locations. Aurora Borealis is especially common in northern regions such as Norway, Canada and Alaska, while Aurora Australis is observed in Antarctica and surrounding ocean regions. This difference relates to the nature of the Earth's magnetic field and the orientation of charged particles to the polar regions."
+            ],
+            5:[
+                "Auroras' shapes result from the movement of charged particles along Earth's magnetic field lines and their interactions with gases in the atmosphere. Since magnetic field lines are denser and tighter in the polar regions, aurorae in these regions are observed in more distinct and impressive ways. Auroras often appear as wavy, streaked or glowing clouds, and the dynamism of these shapes depends on the density of gases and the flow of charged particles in the atmosphere."
+            ],
+            6:[
+                "The Earth's magnetic field directs charged particles from the Sun and attracts them to the polar regions. This magnetic field acts as a shield to protect charged particles, but is weak in polar regions, allowing the particles to interact with the atmosphere. This interaction enables the formation of auroras and makes it possible to observe auroras in the polar regions."
+            ],
+            7:[
+                "In the formation of the aurora, some gases in the atmosphere, especially oxygen and nitrogen, play an important role. When charged particles from the Sun collide with these gases, energy is released and this energy appears as light. Oxygen emits green and red lights, while nitrogen produces blue and purple colors. The density of these gases in the atmosphere and the type of interaction determine the colors of the aurora."
+            ],
+            8:[
+                "Throughout history, people have explained auroras as mystical events or supernatural signs. For example, Vikings in Northern Europe thought that auroras were the spirits of warriors fighting in the skies. Some indigenous peoples interpreted auroras as a sign that the spirits of their ancestors communicated with the earth. Such beliefs have created cultural meanings and mythological stories associated with the observation of the aurora."
+            ],
+            9:[
+                "The role of auroras in mythology is filled with beliefs that spirits or gods dance in the sky or are signs that influence people's lives. For example, in some indigenous Inuit cultures, auroras are considered dancing spirits of deceased ancestors. In some other cultures, the aurora is interpreted as a harbinger of disasters or a message from the gods. Such beliefs have fueled human imagination about the mysterious and impressive nature of the aurora."
+            ],
+            10:[
+                "There is a direct relationship between solar activity and aurora incidence. The likelihood of seeing auroras increases during periods when the Sun's magnetic activity is high, especially during solar storms and coronal mass ejections. Such events cause more charged particles to reach Earth. Therefore, auroras are observed more frequently and brightly during periods of solar maximum, while this decreases during periods of low solar activity."
+            ],
+            11:[
+                "In the formation of the aurora, the interaction of atoms and electrons plays a critical role. When high-energy electrons from the Sun reach the upper layers of the atmosphere, they collide with gas molecules in the atmosphere. As a result of these collisions, gas atoms gain energy and become excited. Then, as these atoms return to a stable state, the energy released appears as light. This process determines the observed colors and brightness of the aurora."
+            ],
+            12:[
+                "Auroras are often seen in the polar regions because the Earth's magnetic field directs charged particles to these regions. The magnetic field is weaker in the polar regions, allowing particles to interact with the atmosphere and auroras to appear. Therefore, the polar regions are the most suitable places for observing auroras."
+            ],
+            13:[
+                "The best conditions for observing auroras are a clear, dark sky, low light pollution and high solar activity. A dark area, away from city lights, helps observe auroras more clearly. Winter months are the best season for observing auroras due to long night periods; There are more dark hours during this period."
+            ],
+            14:[
+                "Although scientific explanation of auroras began in the 19th century, a deeper understanding of the interaction of solar winds and the Earth's magnetosphere developed towards the mid-20th century. Auroras, which were initially considered a mystical and supernatural event, have been explained as a phenomenon that occurs as a result of the interaction of charged particles with gases in the atmosphere, thanks to scientific research and observations. These advances have helped us better understand the formation of the aurora."
+            ]
+        };
+
+        function toggleAnswer(questionId) {
+            const answerElement = document.getElementById("answer" + questionId);
+            const pool = answersPool[questionId];
+
+
+            if (answerElement.style.display === "none") {
+                const randomIndex = Math.floor(Math.random() * pool.length);
+                answerElement.innerText = pool[randomIndex];
+                answerElement.style.display = "block";
+            } else {
+                answerElement.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
+<head>
+
+</head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+
+        }
+    </style>
+</head>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geomagnetic Storm Prediction</title>
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/pyodide/v0.18.1/full/pyodide.js"></script>
+
+</head>
+<body>
+    <h1>Geomagnetic Storm Prediction for 2025</h1>
+    <button id="predictBtn">Predict Storms</button>
+    <p id="result"></p>
+
+    <script type="text/javascript">
+        async function runPythonCode() {
+            // Pyodide'i başlat
+            let pyodide = await loadPyodide();
+            await pyodide.loadPackage("pandas");
+            await pyodide.loadPackage("scikit-learn");
+            await pyodide.loadPackage("numpy");
+
+            // Python kodunu çalıştır
+            let code = `
+import requests
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+import numpy as np
+
+url = "https://services.swpc.noaa.gov/json/edited_events.json"
+response = requests.get(url)
+data = response.json()
+
+df = pd.DataFrame(data)
+df['begin_datetime'] = pd.to_datetime(df['begin_datetime'])
+df['year'] = df['begin_datetime'].dt.year
+
+yearly_counts = df['year'].value_counts().sort_index()
+
+X = np.array(yearly_counts.index).reshape(-1, 1)
+y = np.array(yearly_counts.values)
+
+model = LinearRegression()
+model.fit(X, y)
+
+future_year = np.array([[2025]])
+predicted_count = model.predict(future_year)
+
+predicted_count[0]
+            `;
+            let result = await pyodide.runPython(code);
+            document.getElementById("result").innerText = \`2025 için tahmin edilen jeomanyetik fırtına sayısı: \${result.toFixed(2)}\ `;
+        }
+
+        document.getElementById("predictBtn").onclick = runPythonCode;
+
+    </script>
+</body>
+</html>
