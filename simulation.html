@@ -36,37 +36,38 @@
             padding: 20px;
             overflow-x: hidden;
         }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
         }
+
         .header {
             text-align: center;
             margin-bottom: 20px;
             animation: fadeIn 1s ease-out;
         }
-        .logo {
-            width: 100px;
-            height: auto;
-            animation: rotate 10s linear infinite;
-        }
+
         .aurora-maps {
             display: flex;
             justify-content: space-around;
             margin-bottom: 20px;
         }
+
         .aurora-map {
             position: relative;
             width: 45%;
             border-radius: 50%;
             overflow: hidden;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            box-shadow: 0 3px 20px rgba(145, 175, 204, 0.5);
         }
+
         .aurora-map img {
             width: 100%;
             height: auto;
             border-radius: 50%;
         }
+
         .aurora-overlay {
             position: absolute;
             top: 0;
@@ -77,18 +78,21 @@
             opacity: 0.7;
             mix-blend-mode: screen;
         }
+
         .slider-container {
             margin-bottom: 20px;
         }
+
         #timeSlider {
             width: 100%;
-/*             -webkit-appearance: none; */
+            -webkit-appearance: none;
             background: linear-gradient(to right, #4CAF50, #FFC107, #F44336);
             outline: none;
             opacity: 0.7;
             transition: opacity .2s;
             border-radius: 12px;
         }
+
         #timeSlider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
@@ -98,6 +102,7 @@
             cursor: pointer;
             border-radius: 50%;
         }
+
         #timeSlider::-moz-range-thumb {
             width: 25px;
             height: 25px;
@@ -105,6 +110,7 @@
             cursor: pointer;
             border-radius: 50%;
         }
+
         .info-panel {
             background-color: rgba(22, 33, 62, 0.8);
             padding: 15px;
@@ -113,12 +119,14 @@
             backdrop-filter: blur(10px);
             animation: slideIn 0.5s ease-out;
         }
+
         .controls {
             display: flex;
             justify-content: center;
             gap: 10px;
             margin-bottom: 20px;
         }
+
         button {
             padding: 10px 20px;
             font-size: 16px;
@@ -130,27 +138,28 @@
             transition: all 0.3s;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         button:hover {
             background-color: #45a049;
             transform: translateY(-2px);
             box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
         }
+
         button:active {
             transform: translateY(0);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
+
         @keyframes slideIn {
             from { transform: translateY(20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+
         .stars {
             position: fixed;
             top: 0;
@@ -160,34 +169,40 @@
             pointer-events: none;
             z-index: -1;
         }
+
+        @keyframes twinkle {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
     </style>
 </head>
 <body>
     <div class="stars"></div>
     <div class="container">
         <div class="header">
-            <h1>Aurora Forecast Simulation</h1>
+            <h1>Jeomorfolojik Fırtına Fiziksel Simulasyonu</h1>
         </div>
 
         <div class="aurora-maps">
             <div class="aurora-map">
-                <img src="assets/poles/north.png" alt="North Pole">
+                <img src="north.png" alt="North Pole">
                 <canvas class="aurora-overlay" id="northOverlay"></canvas>
             </div>
             <div class="aurora-map">
-                <img src="assets/poles/south.png" alt="South Pole">
+                <img src="south.png" alt="South Pole">
                 <canvas class="aurora-overlay" id="southOverlay"></canvas>
             </div>
         </div>
 
         <div class="slider-container">
             Time: <span id="timeValue">0</span>
-            <input type="range" id="timeSlider" min="0" max="1440" value="0">
+            <input type="range" id="timeSlider" min="0" max="2048" value="0">
         </div>
 
         <div class="info-panel">
-            <p>HPI: <span id="hpiValue">0</span> GW (Range 5 to 200)</p>
-            <p>Forecast Lead Time: <span id="forecastTime">0</span> minutes</p>
+            <p>HPI: <span id="hpiValue">0</span> GW</p>
+            <p>Tahmini Geçen Zaman: <span id="forecastTime">0</span> minutes</p>
         </div>
 
         <div class="controls">
@@ -195,6 +210,8 @@
             <button id="stopButton">Stop</button>
         </div>
     </div>
+
+
 
     <script>
         const timeSlider = document.getElementById('timeSlider');
@@ -212,6 +229,17 @@
         let animationInterval;
         let auroraParticles = [];
 
+        if (!animationInterval) {
+            let time = parseInt(timeSlider.value);
+            animationInterval = setInterval(() => {
+                time = (time + 1) % 1440;
+                timeSlider.value = time;
+                timeValue.textContent = time;
+                forecastTime.textContent = time;
+                updateAurora(time);
+            }, 50);
+        }
+
         function resizeCanvas() {
             northOverlay.width = northOverlay.offsetWidth;
             northOverlay.height = northOverlay.offsetHeight;
@@ -224,12 +252,12 @@
 
         function createAuroraParticles() {
             auroraParticles = [];
-            const particleCount = 60;
+            const particleCount = 120;
             for (let i = 0; i < particleCount; i++) {
                 auroraParticles.push({
-                    x: Math.random(),
-                    y: Math.random() - 2,
-                    size: Math.random() *3 + 1,
+                    x: Math.random() - 0.3,
+                    y: Math.random() - 0.8,
+                    size: Math.random() * 3 + 0.5,
                     speedX: (Math.random() - 0.5) * 0.002,
                     speedY: (Math.random() - 0.5) * 0.002
                 });
@@ -263,72 +291,47 @@
 
                 ctx.beginPath();
                 ctx.arc(x, y, particle.size, 0, Math.PI * 2);
-                ctx.fillStyle = `hsla(${hue}, 100%, 50%, ${0.5 + Math.sin(time / 1000 + particle.x * Math.PI * 2) * 0.25})`;
+                ctx.fillStyle = `hsla(${hue}, 100%, 50%, ${0.5 + Math.sin(time / 1000 + particle.x * Math.PI * 2) * 0.45    })`;
                 ctx.fill();
             });
         }
 
         function updateAurora(time) {
             const hpi = Math.floor(Math.sin(time / 120) * 97.5 + 102.5);
-            const intensity = (hpi - 5) / 195;
-            const hue = (time * 0.1) % 360; // Changing color over time
+            hpiValue.textContent = hpi;
+
+            const hue = (time / 10) % 360;
 
             drawAurora(northCtx, time, hue);
             drawAurora(southCtx, time, (hue + 180) % 360);
-
-            timeValue.textContent = time;
-            hpiValue.textContent = hpi.toFixed(1);
-            forecastTime.textContent = Math.floor(time / 6) * 5;
         }
 
-        timeSlider.addEventListener('input', () => {
-            updateAurora(parseInt(timeSlider.value));
+        timeSlider.addEventListener('input', function () {
+            timeValue.textContent = this.value;
+            forecastTime.textContent = this.value;
+            updateAurora(this.value);
         });
 
-        startButton.addEventListener('click', () => {
-            clearInterval(animationInterval);
-            animationInterval = setInterval(() => {
-                timeSlider.value = (parseInt(timeSlider.value) + 1) % 1441;
-                updateAurora(parseInt(timeSlider.value));
-            }, 50);
-        });
-
-        stopButton.addEventListener('click', () => {
-            clearInterval(animationInterval);
-        });
-
-        function createStars() {
-            const starsContainer = document.querySelector('.stars');
-            const starCount = 200;
-
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.width = '2px';
-                star.style.height = '2px';
-                star.style.background = 'white';
-                star.style.position = 'absolute';
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.top = `${Math.random() * 100}%`;
-                star.style.animation = `twinkle ${Math.random() * 5 + 5}s linear infinite`;
-                starsContainer.appendChild(star);
+        startButton.addEventListener('click', function () {
+            if (!animationInterval) {
+                let time = parseInt(timeSlider.value);
+                animationInterval = setInterval(() => {
+                    time = (time + 1) % 1440;
+                    timeSlider.value = time;
+                    timeValue.textContent = time;
+                    forecastTime.textContent = time;
+                    updateAurora(time);
+                }, 50);
             }
-        }
+        });
+
+        stopButton.addEventListener('click', function () {
+            clearInterval(animationInterval);
+            animationInterval = null;
+        });
+
 
         createAuroraParticles();
-        createStars();
         updateAurora(0);
 
-        // Add this to your existing <style> tag
-        document.head.insertAdjacentHTML('beforeend', `
-            <style>
-                @keyframes twinkle {
-                    0% { opacity: 0.5; }
-                    50% { opacity: 1; }
-                    100% { opacity: 0.5; }
-                }
-            </style>
-        `);
     </script>
-</body>
-</html>
